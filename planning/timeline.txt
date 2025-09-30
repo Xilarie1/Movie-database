@@ -1,0 +1,21 @@
+day 1 
+
+structure, api handling, data functions, basic page and component for viewing data
+router?
+
+src 
+
+components/
+hooks/
+pages/
+services/
+lib/
+
+
+day 2
+
+search, navbar
+movie details page,
+swiper - carousels
+
+npm install react-router-dom axios @tanstack/react-query swiper
