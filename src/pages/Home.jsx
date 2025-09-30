@@ -1,20 +1,17 @@
-import api from "../lib/axios";
-import { useQuery } from "@tanstack/react-query";
+import MovieCard from "../components/MovieCard";
+import { useTrending, usePopularMovies } from "../hooks/useTmdb";
 
 export default function Home() {
-  const { data, isLoading } = useQuery({
-    queryKey: ["test"],
-    queryFn: async () => {
-      const result = await api.get("/trending/movie/week");
+  const { data: trending } = useTrending();
+  const { data: popular } = usePopularMovies();
 
-      return result.data;
-    },
-  });
-
-  console.log(result);
   return (
     <>
-      <h1>Hello from home</h1>
+      <h1>hello from home</h1>
+      <MovieCard />
+      {trending.results.map((itme) => (
+        <MovieCard key={itme.id} item={item} />
+      ))}
     </>
   );
 }

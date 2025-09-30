@@ -1,32 +1,39 @@
 import api from "../lib/axios.js";
 
-// modular get function that accepts different paramters
+// Modular get function that accepts different parameters
 const get = (url, params = {}) => {
-  api
+  return api
     .get(url, { params: { ...api.defaults.paramsSerializer, ...params } })
-    .then((reuslt) => reuslt.data);
+    .then((result) => result.data);
 };
-// gets list of trending movies, default to mediatype movie and wweek as time period
+
+// Gets list of trending movies or TV shows (defaults to movie and week)
 export const getTrending = (mediaType = "movie", trendingWindow = "week") => {
   return get(`/trending/${mediaType}/${trendingWindow}`);
 };
-// get popular movies based on imdb rating, defaults to mediatype movie and one page
-export const getPopular = (pageNumber = 1, mediaType = "movie") => {
+
+// Get popular movies or TV shows (defaults to movie and page 1)
+export const getPopular = (mediaType = "movie", pageNumber = 1) => {
   return get(`/${mediaType}/popular`, { page: pageNumber });
 };
-// gets datga based on movie id
+
+// Get detailed data for a specific movie
 export const getMovieDetails = (movieID) => {
   return get(`/movie/${movieID}`, {
     append_to_response: "videos, images, credits",
   });
 };
 
+// Search movies, TV shows, or people
 export const searchMulti = (searchQuery, pageNumber = 1) => {
-  if (searchQuery.trim() !== "") {
-    return get("/search/multi", {
-      query: searchQuery,
-      include_adult: false,
-      page: pageNumber,
-    });
+  if (!searchQuery.trim()) {
+    // Return empty result if searchQuery is empty
+    return Promise.resolve({ results: [] });
   }
+
+  return get("/search/multi", {
+    query: searchQuery,
+    include_adult: false,
+    page: pageNumber,
+  });
 };

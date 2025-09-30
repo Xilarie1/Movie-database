@@ -1,7 +1,7 @@
 import App from "../App";
 import Home from "../pages/Home";
 
-const route = [
+const routes = [
   {
     path: "/",
     element: <App />,
