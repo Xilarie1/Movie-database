@@ -10,6 +10,10 @@ const routes = [
         index: true,
         element: <Home />,
       },
+      {
+        path: "movie:id",
+        element: <Movie />,
+      },
     ],
   },
 ];
